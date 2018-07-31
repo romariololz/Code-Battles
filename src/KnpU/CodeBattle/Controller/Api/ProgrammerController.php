@@ -37,7 +37,8 @@ class ProgrammerController extends BaseController
 
         $this->save($programmer);
 
-        $response = new Response('It worked. Believe me - I\'m an API', 201);
+        $data = $this->serializeProgrammer($programmer);
+        $response = new JsonResponse($data, 201);
         $programmerUrl = $this->generateUrl(
             'api_programmers_show',
             ['nickname' => $programmer->nickname]
@@ -45,7 +46,6 @@ class ProgrammerController extends BaseController
         $response->headers->set('Location', $programmerUrl);
 
         return $response;
-
     }
 
     public function showAction($nickname)
