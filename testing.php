@@ -18,10 +18,14 @@ $data = array(
     'tagLine' => 'a test dev!'
 );
 
+// 1) Create a programmer resource
 $request = $client->post('/api/programmers', null, json_encode($data));
 $response = $request->send();
 
-$request = $client->get('/api/programmers/555'.$nickname);
+$programmerUrl = $response->getHeader('Location');
+
+// 2) GET a programmer resource
+$request = $client->get($programmerUrl);
 $response = $request->send();
 
 echo $response;
